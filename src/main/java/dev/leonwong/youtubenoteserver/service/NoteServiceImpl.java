@@ -9,15 +9,17 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class NoteServiceImpl implements NoteService{
+public class NoteServiceImpl implements NoteService {
 
     @Autowired
     private NoteRepository noteRepository;
 
     @Override
-    public void insertNewNote(Note note) {
+    public Note insertNewNote(Note note) throws Exception {
         note.setId(0);
-        noteRepository.save(note);
+        Note savedNote = noteRepository.save(note);
+        noteRepository.flush();
+        return this.findById(savedNote.getId());
     }
 
     @Override
@@ -46,7 +48,7 @@ public class NoteServiceImpl implements NoteService{
                     return noteRepository.save(note);
                 });
         if (optionalNote.isPresent()) {
-            return  optionalNote.get();
+            return optionalNote.get();
         } else {
             throw new Exception("Fail to edit note");
         }

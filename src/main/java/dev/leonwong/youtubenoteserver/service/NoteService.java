@@ -5,7 +5,7 @@ import dev.leonwong.youtubenoteserver.entity.Note;
 import java.util.List;
 
 public interface NoteService {
-    public void insertNewNote(Note note);
+    public Note insertNewNote(Note note) throws Exception;
 
     public List<Note> findAll();
 

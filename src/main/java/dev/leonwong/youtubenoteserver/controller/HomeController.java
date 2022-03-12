@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @RestController
-@CrossOrigin(origins = "*",allowedHeaders = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/")
 public class HomeController {
 
@@ -29,7 +29,7 @@ public class HomeController {
     @ResponseBody
     public String getFibo(@PathVariable int n) throws InterruptedException {
         AtomicInteger result = new AtomicInteger();
-        Thread t1 = new Thread(()->{
+        Thread t1 = new Thread(() -> {
             result.set(fibo(n));
         });
         t1.start();
@@ -41,6 +41,6 @@ public class HomeController {
     private int fibo(int n) {
         if (n < 2)
             return 1;
-        else   return fibo(n - 2) + fibo(n - 1);
+        else return fibo(n - 2) + fibo(n - 1);
     }
 }

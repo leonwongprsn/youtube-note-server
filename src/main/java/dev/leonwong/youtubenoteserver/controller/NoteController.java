@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "*",allowedHeaders = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/api/notes")
 public class NoteController {
 
@@ -17,6 +17,7 @@ public class NoteController {
     private NoteService noteService;
 
     @GetMapping("")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public List<Note> getAllNotes() {
         HashMap<String, List<Note>> json = new HashMap<>();
         json.put("notes", noteService.findAll());
@@ -24,30 +25,29 @@ public class NoteController {
     }
 
     @GetMapping("/{id}")
-    public Note getNoteById(@PathVariable Integer id) throws Exception{
-
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public Note getNoteById(@PathVariable Integer id) throws Exception {
         return noteService.findById(id);
     }
 
     @PostMapping("")
-    public List<Note> createNote(@RequestBody Note note) {
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public Note createNote(@RequestBody Note note) throws Exception {
         System.out.println(note);
-        noteService.insertNewNote(note);
-        HashMap<String, List<Note>> json = new HashMap<>();
-        json.put("notes", noteService.findAll());
-        return noteService.findAll();
+        Note savedNote = noteService.insertNewNote(note);
+        return savedNote;
     }
 
     @PutMapping("/{id}")
-    public List<Note> editNote(@PathVariable Integer id, @RequestBody Note newNote) throws Exception{
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public Note editNote(@PathVariable Integer id, @RequestBody Note newNote) throws Exception {
         System.out.println(newNote);
         noteService.updateNote(newNote, id);
-        HashMap<String, List<Note>> json = new HashMap<>();
-        json.put("notes", noteService.findAll());
-        return noteService.findAll();
+        return noteService.findById(id);
     }
 
     @DeleteMapping("/{id}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public String deleteNote(@PathVariable Integer id) {
         System.out.println("deleting note with id: " + String.valueOf(id));
         noteService.deleteNote(id);
