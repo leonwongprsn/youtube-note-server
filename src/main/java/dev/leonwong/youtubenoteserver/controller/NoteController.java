@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.DELETE, RequestMethod.GET, RequestMethod.HEAD, RequestMethod.OPTIONS, RequestMethod.PATCH, RequestMethod.POST, RequestMethod.PUT, RequestMethod.TRACE})
 @RequestMapping("/api/notes")
 public class NoteController {
 
@@ -17,7 +17,6 @@ public class NoteController {
     private NoteService noteService;
 
     @GetMapping("")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public List<Note> getAllNotes() {
         HashMap<String, List<Note>> json = new HashMap<>();
         json.put("notes", noteService.findAll());
@@ -25,13 +24,11 @@ public class NoteController {
     }
 
     @GetMapping("/{id}")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public Note getNoteById(@PathVariable Integer id) throws Exception {
         return noteService.findById(id);
     }
 
     @PostMapping("")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public Note createNote(@RequestBody Note note) throws Exception {
         System.out.println(note);
         Note savedNote = noteService.insertNewNote(note);
@@ -39,7 +36,6 @@ public class NoteController {
     }
 
     @PutMapping("/{id}")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public Note editNote(@PathVariable Integer id, @RequestBody Note newNote) throws Exception {
         System.out.println(newNote);
         noteService.updateNote(newNote, id);
@@ -47,7 +43,6 @@ public class NoteController {
     }
 
     @DeleteMapping("/{id}")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public String deleteNote(@PathVariable Integer id) {
         System.out.println("deleting note with id: " + String.valueOf(id));
         noteService.deleteNote(id);
