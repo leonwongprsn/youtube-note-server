@@ -1,1 +1,1 @@
-Backend code for this frontend web app: https://github.com/leonwongprsn/react-crud-videonote-app
+Java Spring backend code for this frontend web app: https://github.com/leonwongprsn/react-crud-videonote-app
